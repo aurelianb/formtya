@@ -1,0 +1,25 @@
+<% content_for :title, "Foorms Submissions" %>
+<div class="w-full">
+  <%= link_to "Back to foorms", foorms_path, class: gray_btn_classes %>
+
+  <div class="grid md:grid-cols-3 gap-2 sm:grid-cols-1 w-full mx-auto">
+    <% if @submissions.any? %>
+      <% @submissions.each do |submission| %>
+      <div class="border-2 my-4 p-4">
+          <p>Name: <strong><%= submission.submitter %></strong></p>
+          <% if submission.answers.any? %>
+            <% submission.answers.each do |answer| %>
+              <div class="bg-gray-100 my-5 p-4 rounded-sm">
+                <strong><%= answer.form_item.label %></strong><br /><%= answer.value %><br />
+              </div>
+            <% end %>
+          <% else %>
+            <p>No answers provided</p>
+          <% end %>
+          </div>
+      <% end %>
+    <% else %>
+      <p class="text-center my-10">No foorms submissions found.</p>
+    <% end %>
+  </div>
+</div>

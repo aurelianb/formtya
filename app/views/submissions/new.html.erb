@@ -1,0 +1,15 @@
+<%= form_with(model: @submission, class: "contents") do |form| %>
+<div class="flex flex-col w-[50%] mx-auto">
+  <h1 class="text-4xl mb-4"><%= @foorm.title %></h1>
+  
+  <%= form.label :submitter, "Your Name" %>
+  <%= form.text_field :submitter, placeholder: "Your Name", class: input_classes %>
+  <%= form.hidden_field :foorm_id, value: @foorm.id %>
+
+  <%= render partial: "items", collection: @foorm.form_items, as: :item %>
+
+  <div class="inline">
+    <%= form.submit "Send", class: blue_btn_classes %>
+  </div>
+</div>
+<% end %>

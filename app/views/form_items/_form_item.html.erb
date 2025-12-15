@@ -1,0 +1,43 @@
+<div class="remove-div bg-gray-100 my-5 p-4">
+  <p>Question</p>
+  <%= fields_for "foorm[form_items_attributes][#{(current_id = (form_item.id || Time.now.to_i))}]", form_item do |f| %>
+    <%= f.hidden_field :id %>
+    <div data-controller="fields removal">
+      <div class="flex flex-row gap-2 content-bottom mb-4">
+        <%= f.text_field :label, 
+          placeholder: "Label", 
+          class: [
+            "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full",
+            error_class(form_item, :label)
+          ]
+        %>
+        <%= f.hidden_field :_destroy, value: 0, data: { "removal-target" => "field" } %>
+
+        <%= f.select :item_type,
+                      options_for_select(FormItem.item_types, selected: form_item.item_type,),
+                      {},
+                      { 
+                        class:  "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full",
+                        data: { "fields-target" => "select", action: "change->fields#check" }
+                      }
+        %>
+
+        <span
+          class="sm:w-auto rounded-sm self-end p-2.5 bg-red-500 hover:bg-red-700 text-white cursor-pointer"
+          data-action="click->removal#remove">
+            Remove
+        </span>
+      </div>
+
+      <div data-fields-target="formItemOptions" class="hidden" id="form_item_options_<%= current_id %>">
+        <%= render form_item.form_item_options, form_item_id: current_id %>
+      </div>
+
+       <%= link_to "Add new option", 
+          new_form_item_option_path(form_item_id: current_id), 
+          class: blue_btn_classes,
+          data: { turbo_stream: true, "fields-target" => "newButton" }
+        %>
+    </div>
+  <% end %>
+</div>

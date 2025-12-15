@@ -1,0 +1,35 @@
+<div class="remove-div bg-gray-100 my-5 p-4 border-1" data-controller="removal">
+  <p>Option</p>
+  <%= fields_for "foorm[form_items_attributes][#{form_item_id}][form_item_options_attributes][#{form_item_option.id || Time.now.to_i}]", form_item_option do |f| %>
+    <%= f.hidden_field :id %>
+    
+    <div class="flex flex-row gap-2">
+      <%= f.text_field :label, 
+        placeholder: "Label", 
+        class: [
+          "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", 
+          error_class(form_item_option, :label)
+        ]
+      %>
+
+      <%= f.text_field :value, 
+        placeholder: "Value", 
+        class: [
+          "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", 
+          error_class(form_item_option, :value)
+        ]
+      %>
+      <%= f.hidden_field :_destroy, value: 0, data: { "removal-target" => "field" } %>
+
+      <span
+        class="sm:w-auto rounded-sm self-end p-2.5 bg-red-500 hover:bg-red-700 text-white cursor-pointer"
+        data-action="click->removal#remove">
+          Remove
+      </span>
+    </div>
+
+    <div data-fields-target="formItemOptions" class="hidden">
+      <p>Options for select</p>
+    </div>
+  <% end %>
+</div>

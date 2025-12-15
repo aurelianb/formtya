@@ -1,0 +1,14 @@
+<div class="bg-gray-100 my-5 p-4 rounded-sm">
+  
+  <%= fields_for "submission[answers_attributes][]", Answer.new do |f| %>
+    <%= f.label :value do %>
+      <%= f.label "item_#{item.id}", item.label %>
+      <%= form_item_field(item, f) %>
+    <% end %>
+    <%= f.hidden_field :form_item_id, value: item.id %>
+  <% end %>
+</div>
+
+
+
+
