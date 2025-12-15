@@ -13,7 +13,7 @@ module ApplicationHelper
 
   def error_class(item, field)
     {
-      "border-gray-400 focus:outline-blue-600": item.errors[field].none?,
+      "focus:outline-blue-600": item.errors[field].none?,
       "border-red-400 focus:outline-red-600": item.errors[field].any?
     }
   end

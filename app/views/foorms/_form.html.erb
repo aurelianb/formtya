@@ -18,7 +18,11 @@
 
   
   <div id="form_items">
-    <%= render foorm.form_items %>
+    <% if foorm.form_items.any? %> 
+      <%= render foorm.form_items %>
+    <% else %>
+     <%= render FormItem.new %>
+    <% end %>
   </div>
 
   <%= link_to "Add new question", 

@@ -60,7 +60,7 @@ class FoormsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_foorm
-      @foorm = Foorm.find(params.expect(:id))
+      @foorm = Foorm.includes(form_items: :form_item_options).find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.
